@@ -1,14 +1,17 @@
 version: '3.7'
 
 services:
-  guest:
-    env_file:
-      - ./variables.env
+  tester:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: gunet/phpcas-tester:latest
     environment:
       - TZ=Europe/Athens
+    env_file:
+      - ./variables.env
     ports:
-      - "8005:80"
+      - "80:80"
     logging:
       driver: "json-file"
       options:

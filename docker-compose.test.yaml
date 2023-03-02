@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  guest:
+  tester:
     depends_on:
       - ldap
       - sso
