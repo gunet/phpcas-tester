@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  guest:
+    env_file:
+      - ./variables.env
+    image: gunet/phpcas-tester:latest
+    environment:
+      - TZ=Europe/Athens
+    ports:
+      - "8005:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "25m"
+        max-file: "2"
