@@ -18,6 +18,11 @@ class CasAuth implements GuestAuth {
 
 
     /**
+     * do we debug?
+     */
+    private $debug = false;
+
+    /**
      * constructor of the CAS authentication module
      *
      * based on the application configuration
@@ -26,19 +31,27 @@ class CasAuth implements GuestAuth {
      * @return void
      */
 
-    public function __construct() {
-       error_log("phpCAS::client(cas_version=" . $_ENV['CAS_VERSION'] . " cas_server=" . $_ENV['CAS_SERVER'] . " cas_port=" . $_ENV['CAS_PORT'] . " cas_context=" . $_ENV['CAS_CONTEXT'] . " service_name=" . $_ENV['CAS_SERVICE_NAME'] . ")");
-       phpCAS::setVerbose(true);
+    public function __construct($debug = false) {
+        if ($debug === true) {
+            $this->debug = true;
+            phpCAS::setLogger();
+            phpCAS::setVerbose(true);
+        }
+        if ($this->debug === true)
+            error_log("phpCAS::client(cas_version=" . $_ENV['CAS_VERSION'] . " cas_server=" . $_ENV['CAS_SERVER'] . " cas_port=" . $_ENV['CAS_PORT'] . " cas_context=" . $_ENV['CAS_CONTEXT'] . " service_name=" . $_ENV['CAS_SERVICE_NAME'] . ")");
        phpCAS::client($_ENV['CAS_VERSION'], $_ENV['CAS_SERVER'], (int)$_ENV['CAS_PORT'], $_ENV['CAS_CONTEXT'], $_ENV['CAS_SERVICE_NAME']);
-       error_log("return phpCAS::client()");
+       if ($this->debug === true)
+            error_log("return phpCAS::client()");
        // No SSL validation for the CAS server
        phpCAS::setNoCasServerValidation();
        if (isset($_ENV['CAS_CONTAINER']) && !empty($_ENV['CAS_CONTAINER'])){
             $serviceValidate = 'https://' . $_ENV['CAS_CONTAINER'] . ':' . $_ENV['CAS_PORT'] . $_ENV['CAS_CONTEXT'] . '/p3/serviceValidate';
-            error_log("phpCAS serviceValidate URL = $serviceValidate");
+            if ($this->debug === true)
+                error_log("phpCAS serviceValidate URL = $serviceValidate");
             phpCAS::setServerServiceValidateURL($serviceValidate);
        }
-       error_log("return __construct()");
+       if ($this->debug)
+            error_log("return __construct()");
     }
 
     /**
@@ -62,6 +75,8 @@ class CasAuth implements GuestAuth {
      */
 
     public function login() {
+        if ($this->debug)
+            error_log("phpCAS::client login()");
         return $this->force();
     }
 
@@ -72,9 +87,33 @@ class CasAuth implements GuestAuth {
      */
 
     public function user() {
-        error_log("phpCAS::clinet user()");
+        if ($this->debug)
+            error_log("phpCAS::client user()");
         $this->force();
         return phpCAS::getUser();
+    }
+
+    /**
+     * does the user have attributes?
+     * 
+     * @return bool
+     */
+
+    public function hasAttributes() {
+        if ($this->debug)
+            error_log("phpCAS::client hasAttributes()");
+        return phpCAS::hasAttributes();
+    }
+    /**
+     * get the user attributes
+     * 
+     * @return array the user attributes
+     */
+    public function getAttributes() {
+        if ($this->debug)
+            error_log("phpCAS::client getAttributes()");
+
+        return phpCAS::getAttributes();
     }
 
     /**
