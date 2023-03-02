@@ -7,7 +7,7 @@ on:
     branches:
       - "main"
     paths:
-      - 'README.md
+      - 'README.md'
 
 jobs:
   readme-sync:
