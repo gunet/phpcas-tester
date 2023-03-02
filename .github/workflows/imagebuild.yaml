@@ -1,4 +1,4 @@
-name: phpcas-tester-build
+name: image-build
 run-name: Build phpcas-tester Docker image
 
 on:
