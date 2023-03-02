@@ -45,4 +45,18 @@ interface GuestAuth {
      */
 
     public function isAuthenticated();
+
+    /**
+     * check if the user has attributes
+     * 
+     * @return bool true if the user has attributes
+     */
+    public function hasAttributes();
+
+    /**
+     * get user attributes
+     * 
+     * @return array of user attributes
+     */
+    public function getAttributes();
 }
