@@ -24,4 +24,4 @@ services:
     environment:
       - TZ=Europe/Athens
       - LDAP_URL=ldap://ldap:1389
-      - CASSERVER_LABEL=cas1.gunet.gr
+      - CAS_SERVER_NAME=${CAS_SERVER_NAME:-https://localhost:8443}
