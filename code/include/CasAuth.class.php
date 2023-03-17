@@ -7,7 +7,6 @@
  * @version $Id: init.php 979 2009-04-22 16:46:36Z avel $
  */
 
-use Psr\Log\LoggerInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Petert82\Monolog\Formatter\LogfmtFormatter;
