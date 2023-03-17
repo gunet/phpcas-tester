@@ -1,5 +1,7 @@
 {
     "require": {
-            "jasig/phpcas":"1.6.0"
+            "jasig/phpcas":"1.6.0",
+            "petert82/monolog-logfmt": "^2.1",
+            "psr/log":"3.0.0"
     }
 }

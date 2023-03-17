@@ -10,6 +10,11 @@ class ComposerStaticInit9dcbdec5edd134ab70626f401cfa1df4
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'Petert82\\' => 9,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
     );
 
@@ -17,6 +22,14 @@ class ComposerStaticInit9dcbdec5edd134ab70626f401cfa1df4
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Petert82\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/petert82/monolog-logfmt/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
     );
 

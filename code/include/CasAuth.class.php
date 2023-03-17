@@ -7,6 +7,11 @@
  * @version $Id: init.php 979 2009-04-22 16:46:36Z avel $
  */
 
+use Psr\Log\LoggerInterface;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Petert82\Monolog\Formatter\LogfmtFormatter;
+
 
 /**
  * CAS Authentication module class
@@ -23,6 +28,11 @@ class CasAuth implements GuestAuth {
     private $debug = false;
 
     /**
+     * Logger Interface
+     */
+    private $logger = null;
+
+    /**
      * constructor of the CAS authentication module
      *
      * based on the application configuration
@@ -34,7 +44,14 @@ class CasAuth implements GuestAuth {
     public function __construct($debug = false) {
         if ($debug === true) {
             $this->debug = true;
-            phpCAS::setLogger();
+
+            $this->logger = new Monolog\Logger('phpcas-tester');
+            $this->logger->setTimezone(new DateTimeZone('Europe/Athens'));
+            $handler = new StreamHandler('php://stdout', Logger::DEBUG);
+            $handler->setFormatter(new LogfmtFormatter('date','level','channel','msg','Y-m-d H:i:s'));
+            $this->logger->pushHandler($handler);
+            
+            phpCAS::setLogger($this->logger);
             phpCAS::setVerbose(true);
         }
         if ($this->debug === true)
@@ -134,7 +151,9 @@ class CasAuth implements GuestAuth {
      */
 
     public function logout($url) {
-        phpCAS::logoutWithUrl($url);
+        if ($this->debug)
+            error_log("phpCAS::client logout() url=$url");
+        phpCAS::logoutWithRedirectService($url);
         return true;
     }
 }
