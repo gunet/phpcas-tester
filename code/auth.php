@@ -13,8 +13,15 @@
 require_once('vendor/autoload.php');
 require_once('include/GuestAuth.class.php');
 require_once('include/CasAuth.class.php');
-  
-$casAuth = new CasAuth(true);
+
+$debug = false;
+$env_debug = getenv('DEBUG');
+
+if ($env_debug !== false && $env_debug == '1') {
+    error_log("Enabling debugging");
+    $debug = true;
+}
+$casAuth = new CasAuth($debug);
 
 if ($casAuth->isAuthenticated()) {?>
 
