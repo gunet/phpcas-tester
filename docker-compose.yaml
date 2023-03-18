@@ -8,10 +8,6 @@ services:
     image: gunet/phpcas-tester:latest
     environment:
       - TZ=Europe/Athens
-# Possible values:
-# DEBUG=1 to enable debugging
-# DEBUG=0 to disable debugging
-      - DEBUG=1
     env_file:
       - ./variables.env
     ports:
