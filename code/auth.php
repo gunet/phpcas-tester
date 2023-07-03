@@ -28,6 +28,8 @@ if ($casAuth->isAuthenticated()) {?>
 <h1>Secured Content</h1>
 <p><big>If you are seeing this, you were authenticated sucessfully.</big></p>
 <?php
+    $user = $casAuth->user();
+    echo "SSO Username: <b>$user</b>";
     // Get the user's attributes
     if ($casAuth->hasAttributes()) {
         $attributes = $casAuth->getAttributes();
@@ -36,7 +38,10 @@ if ($casAuth->isAuthenticated()) {?>
 
         // Print all the attributes
         foreach ($attributes as $key => $value) {
-            echo "$key: $value<br>";
+            if (is_array($value))
+                echo "$key: <i>(Array)</i> " . json_encode($value) . "<br>";
+            else
+                echo "$key: $value<br>";
         }
     }
 }
