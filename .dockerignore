@@ -1,3 +1,4 @@
 docker-compose.*
 .github/**
+.git/**
 README.md
