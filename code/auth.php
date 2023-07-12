@@ -23,10 +23,18 @@ if ($env_debug !== false && $env_debug == '1') {
 }
 $casAuth = new CasAuth($debug);
 
-if ($casAuth->isAuthenticated()) {?>
+if ($casAuth->isAuthenticated()) {
+    if (isset($_POST['logout'])) {
+        $casAuth->logout("https://localhost/");
+    }
+    ?>
 
 <h1>Secured Content</h1>
 <p><big>If you are seeing this, you were authenticated sucessfully.</big></p>
+    <form method="POST">
+        <input type="submit" name="logout" value="Logout">
+    </form>
+    <br>
 <?php
     $user = $casAuth->user();
     echo "SSO Username: <b>$user</b>";
@@ -44,8 +52,7 @@ if ($casAuth->isAuthenticated()) {?>
                 echo "$key: $value<br>";
         }
     }
-}
-else {
+} else {
     $casAuth->login();
 }
 
