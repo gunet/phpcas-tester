@@ -12,6 +12,8 @@ COPY php/php.ini $PHP_INI_DIR/php.ini
 COPY php/log.conf $PHP_INI_DIR/conf.d/zz-log.conf
 COPY code/ /var/www/html/
 
+HEALTHCHECK --interval=5s --timeout=2s --start-period=5s --retries=5 CMD /usr/bin/pgrep -c -u www-data apache2
+
 # Allow for a redirect folder
 # The ${REDIR_FOLDER} will be redirected to DocumentRoot
 ENV REDIR_FOLDER=tester
