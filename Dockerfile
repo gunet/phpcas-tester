@@ -15,5 +15,11 @@ COPY code/ /var/www/html/
 # Allow for a redirect folder
 # The ${REDIR_FOLDER} will be redirected to DocumentRoot
 ENV REDIR_FOLDER=tester
+ENV TZ=Europe/Athens
+ENV CAS_SERVER=localhost
+ENV CAS_CONTEXT=/cas
+ENV CAS_PORT=8443
+ENV CAS_VERSION=3.0
+ENV CAS_SERVICE_NAME=https://localhost
 
 EXPOSE 80 443
