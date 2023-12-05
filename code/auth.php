@@ -25,7 +25,8 @@ $casAuth = new CasAuth($debug);
 
 if ($casAuth->isAuthenticated()) {
     if (isset($_POST['logout'])) {
-        $casAuth->logout("https://localhost/");
+        $redirectUrl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "https://localhost/";
+        $casAuth->logout($redirectUrl);
     }
     ?>
 
