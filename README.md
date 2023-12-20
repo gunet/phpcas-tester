@@ -22,6 +22,12 @@ Docker Hub image: [gunet/phpcas-tester](https://hub.docker.com/repository/docker
 * `variables.env`: Environment variables file By default, it is designed to assist the `docker-compose.test.yaml` stack
   - `DEBUG` variable sets debugging (mainly phpCAS debug)
 
+# Run
+* Edit `variables.env` if needed
+* Run `docker compose up -d` if we want to check an existing production CAS server
+* Run `docker compose -f docker-compose.yaml -f docker-compose.test.yaml up -d` if we want to run the test stack (Which includes a CAS and LDAP server)
+* Point browser to `https://localhost`
+
 # Environment Variables
 * `CAS_SERVER`: The hostname of the CAS server (default `localhost`)
 * `CAS_CONTEXT`: The CAS context. In the case of `gunet/simple-cas` it will be `/cas`, while in the case of a regulat CAS it will be `./` (default `/cas`)
