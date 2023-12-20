@@ -3,8 +3,10 @@ version: '3.7'
 services:
   tester:
     depends_on:
-      - ldap
-      - sso
+      ldap:
+        condition: service_healthy
+      sso:
+        condition: service_healthy
     volumes:
       - ./code:/var/www/html
     environment:
@@ -19,7 +21,8 @@ services:
     ports:
       - "8443:8443"
     depends_on:
-      - ldap
+      ldap:
+        condition: service_healthy
     restart: unless-stopped
     environment:
       - TZ=Europe/Athens
