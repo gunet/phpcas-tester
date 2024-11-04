@@ -13,6 +13,9 @@ on:
       - 'code/**'
       - 'php/**'
 
+env:
+  TAG_NAME: ${{ github.ref_type == 'tag' && format('{0}',github.ref_name) || 'latest' }}
+
 jobs:
   image-build:
     runs-on: ubuntu-latest
@@ -37,7 +40,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: gunet/phpcas-tester:latest
+          tags: gunet/phpcas-tester:${{ env.TAG_NAME }}
           labels: gr.gunet.phpcas-tester.pushdate=${{ steps.date.outputs.env.push_date }}
           cache-from: type=registry,ref=gunet/phpcas-tester:buildcache
           cache-to: type=registry,ref=gunet/phpcas-tester:buildcache,mode=max
