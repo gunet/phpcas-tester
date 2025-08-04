@@ -52,6 +52,13 @@
 
               // Print all the attributes in a table
               foreach ($attributes as $key => $value) {
+              if (is_array($value)) {
+                  // If the value is an array, convert it to a comma-separated string with brackets around it
+                  $value = '[' . implode(', ', $value) . ']';
+              }
+              if (is_null($value)) {
+                  $value = 'NULL';
+              }
                   echo "<tr><td>$key</td><td>$value</td></tr>";
               }
 
