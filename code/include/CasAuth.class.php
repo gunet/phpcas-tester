@@ -64,7 +64,9 @@ class CasAuth implements GuestAuth {
             $serviceValidate = 'https://' . $_ENV['CAS_CONTAINER'] . ':' . $_ENV['CAS_PORT'] . $_ENV['CAS_CONTEXT'] . '/p3/serviceValidate';
             if ($this->debug === true)
                 error_log("phpCAS serviceValidate URL = $serviceValidate");
+            $samlValidate = 'https://' . $_ENV['CAS_CONTAINER'] . ':' . $_ENV['CAS_PORT'] . $_ENV['CAS_CONTEXT'] . '/samlValidate';
             phpCAS::setServerServiceValidateURL($serviceValidate);
+            phpCAS::setServerSamlValidateURL($samlValidate);
        }
        if ($this->debug)
             error_log("return __construct()");
