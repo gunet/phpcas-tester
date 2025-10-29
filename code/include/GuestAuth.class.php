@@ -22,6 +22,13 @@ interface GuestAuth {
     public function login();
 
     /**
+     * set MFA authentication
+     * @return string $loginURL the login URL with MFA parameters
+     */
+
+    public function setMFA();
+
+    /**
      * get the username of the authenticated user.
      *
      * @return string the username
