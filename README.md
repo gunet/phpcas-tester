@@ -37,5 +37,5 @@ Docker Hub image: [gunet/phpcas-tester](https://hub.docker.com/repository/docker
   - `1.0`: CAS version 1.0
   - `S1` : SAML v1.1
 * `CAS_SERVICE_NAME`: The service name to use for our service (default `https://localhost`)
-
 * `CAS_CONTAINER`: If using PHP CAS tester in a Docker compose stack environment, `localhost` will mean something different for the user using it and for php-castester itself. In such a case we can set the `CAS_CONTAINER` environment variable (it is empty by default) to point to a "correct" CAS server name. This is used to access `/p3/serviceValidate` and the actual string will be: `'https://' . $_ENV['CAS_CONTAINER'] . ':' . $_ENV['CAS_PORT'] . $_ENV['CAS_CONTEXT'] . '/p3/serviceValidate'`
+* `REDIR_FOLDER`: A folder name that will be redirected to the DocumentRoot in Apache

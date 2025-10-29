@@ -5,7 +5,6 @@ services:
       dockerfile: Dockerfile
     image: gunet/phpcas-tester:latest
     environment:
-      - TZ=Europe/Athens
       - REDIR_FOLDER=${REDIR_FOLDER:-tester}
     env_file:
       - ./variables.env
