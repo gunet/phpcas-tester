@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM php:8.4-cli-bookworm as vendor
+FROM php:8.4-cli-bookworm AS vendor
 RUN apt-get update && apt-get install -yq --no-install-recommends git && \
 	rm -rf /var/lib/apt/lists/*
 COPY --from=composer /usr/bin/composer /usr/bin/composer

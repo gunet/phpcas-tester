@@ -99,6 +99,23 @@ class CasAuth implements GuestAuth {
     }
 
     /**
+     * set MFA authentication
+     * @return string $loginURL
+     */
+    public function setMFA($renew = false) {
+
+
+        $loginURL = phpCAS::getServerLoginURL() . '&authn_method=mfa-gauth';
+        if ($renew) {
+            $loginURL .= '&renew=true';
+        }
+        if ($this->debug)
+            error_log("phpCAS::client setMFA() loginURL=$loginURL");
+        phpCAS::setServerLoginURL($loginURL);
+        return $loginURL;
+    }
+
+    /**
      * get the username of the authenticated client. Forces authentication.
      *
      * @return string the username
