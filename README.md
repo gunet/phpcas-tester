@@ -49,4 +49,4 @@ The returned CAS attributes will include the following in case of MFA Gauth:
 * `credentialType=GoogleAuthenticatorTokenCredential`
 * `authenticationMethod=GoogleAuthenticatorAuthenticationHandler`
 
-You can enable a TOTP token in the `simple-cas` SSO of the test Dcoker compose stack. One needs to do a normal login directly on the `/account` page and add a token. The default configuration enables TOTP for the `auser` user
+You can enable a TOTP token in the `simple-cas` SSO of the test Dcoker compose stack. One needs to do a login with the added parameter of `authn_method=mfa-gauth`
