@@ -13,8 +13,25 @@
     <div class="fancy-box">
       <h1 class="fancy-title">Welcome to CAS Authentication Tester</h1>
       <p class="description">This is a simple app for testing CAS login and attributes</p>
-      <a href="auth.php" class="fancy-button">Test CAS Authentication</a>
-      <a href="auth.php?mfa" class="fancy-button">Test CAS MFA Authentication</a>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="mfaCheckbox"> Enable MFA Authentication
+        </label>
+      </div>
+      <a href="auth.php" class="fancy-button" id="authLink">Test CAS Authentication</a>
+      
+      <script>
+        document.getElementById('mfaCheckbox').addEventListener('change', function() {
+          const authLink = document.getElementById('authLink');
+          if (this.checked) {
+        authLink.href = 'auth.php?mfa';
+        authLink.textContent = 'Test CAS MFA Authentication';
+          } else {
+        authLink.href = 'auth.php';
+        authLink.textContent = 'Test CAS Authentication';
+          }
+        });
+      </script>
       <div class="powered-by">
         <p>Powered by <a href="https://www.gunet.gr/" target="_blank">GUNET</a></p>
       </div>
