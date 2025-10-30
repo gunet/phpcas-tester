@@ -9,8 +9,6 @@ services:
       - CAS_CONTAINER=sso
   ldap:
     image: gunet/simple-ldap
-    environment:
-      - TZ=Europe/Athens
     restart: unless-stopped
   sso:
     image: gunet/simple-cas
