@@ -15,13 +15,16 @@ if ($env_debug !== false && $env_debug == '1') {
 }
 $casAuth = new CasAuth($debug);
 
+// Handle back-channel logout requests before anything else
+$casAuth->handleLogoutRequests();
+
 if ($casAuth->isAuthenticated()) {
     if (isset($_POST['logout'])) {
         $redirectUrl = $_ENV['CAS_SERVICE_NAME'];
         $casAuth->logout($redirectUrl);
     }
     // Handle MFA re-authentication request
-    if (isset($_POST['mfa'])) {
+    else if (isset($_POST['mfa'])) {
         // Set MFA parameters
         $loginURL = $casAuth->setMFA();
         // Remove session value for user

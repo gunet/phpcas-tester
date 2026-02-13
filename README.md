@@ -50,3 +50,17 @@ The returned CAS attributes will include the following in case of MFA Gauth:
 * `authenticationMethod=GoogleAuthenticatorAuthenticationHandler`
 
 You can enable a TOTP token in the `simple-cas` SSO of the test Dcoker compose stack. One needs to do a login with the added parameter of `authn_method=mfa-gauth`
+
+# SLO Requests
+We handle back-channel [requests](https://apereo.github.io/cas/development/installation/Logout-Single-Signout.html#back-channel) by default. This will happne by a `POST` request to `/auth.php` with the following contents:
+```saml
+<samlp:LogoutRequest
+    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+    ID="[RANDOM ID]"
+    Version="2.0"
+    IssueInstant="[CURRENT DATE/TIME]">
+    <saml:NameID>[PRINCIPAL IDENTIFIER]</saml:NameID>
+    <samlp:SessionIndex>[SESSION IDENTIFIER]</samlp:SessionIndex>
+</samlp:LogoutRequest>
+```
