@@ -174,4 +174,13 @@ class CasAuth implements GuestAuth {
         phpCAS::logoutWithRedirectService($url);
         return true;
     }
+    /**
+     * handle back-channel logout requests from the CAS server
+     * @return void
+     */
+    public function handleLogoutRequests() {
+        if ($this->debug)
+            error_log("phpCAS::client handleLogoutRequests()");
+        phpCAS::handleLogoutRequests( $check_client = false );
+    }
 }
