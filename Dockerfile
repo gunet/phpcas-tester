@@ -12,9 +12,9 @@ RUN COMPOSER_ALLOW_SUPERUSER=1 composer install
 FROM php:8.4-apache-bookworm
 
 # Enable ssl
-COPY apache/default-ssl.conf /etc/apache2/sites-available/
+COPY apache/ /etc/apache2/sites-available/
 RUN a2enmod socache_shmcb ssl alias && \
-    a2ensite default-ssl
+    a2ensite default-ssl default-http
 
 COPY --from=vendor /app/vendor/ /var/www/html/vendor/
 COPY certs/privkey.pem /etc/ssl/private/
