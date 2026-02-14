@@ -8,7 +8,7 @@ Docker Hub image: [gunet/phpcas-tester](https://hub.docker.com/repository/docker
 * `docker-compose.yaml`
   - Builds the project (altough you can also download the image from Docker Hub). Run `docker compose build`
   - Includes the `variables.env` environment variables file
-  - Exposes port 443
+  - Exposes port 443 and 80 (HTTPS and HTTP)
 * `docker-compose.volume.yaml`
   - Volume mount the `code` folder
 * `docker-compose.test.yaml`
@@ -52,7 +52,11 @@ The returned CAS attributes will include the following in case of MFA Gauth:
 You can enable a TOTP token in the `simple-cas` SSO of the test Dcoker compose stack. One needs to do a login with the added parameter of `authn_method=mfa-gauth`
 
 # SLO Requests
-We handle back-channel [requests](https://apereo.github.io/cas/development/installation/Logout-Single-Signout.html#back-channel) by default. This will happne by a `POST` request to `/auth.php` with the following contents:
+We handle back-channel [requests](https://apereo.github.io/cas/development/installation/Logout-Single-Signout.html#back-channel) by default.
+
+Since we use a self-signed certificate and the SSO server will directly talk to our phpCAS application, HTTPS communication will fail due to a non-trusted web certificate. If we want to test back-channel SLO we need to use HTTP. Moreover, setting the service name to `http://localhost` will not work since the SSO server will try accessing its own localhost interface. We must set the service name to a real DNS/IP
+
+The SLO will happen using a `POST` request to `/auth.php` with the following contents:
 ```saml
 <samlp:LogoutRequest
     xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
@@ -64,3 +68,4 @@ We handle back-channel [requests](https://apereo.github.io/cas/development/insta
     <samlp:SessionIndex>[SESSION IDENTIFIER]</samlp:SessionIndex>
 </samlp:LogoutRequest>
 ```
+* phpCAS does not seem to [support](https://github.com/apereo/phpCAS/issues/351) front-channel logouts
